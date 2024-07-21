@@ -1,0 +1,130 @@
+
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.to-do > div,
+.doing > div,
+.done > div {
+  flex: 1;
+  width: 380px;
+  margin: 0 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 500px; 
+  overflow-y: auto;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+p {
+  font-size: 16px;
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 5px 0;
+}
+
+select,
+button {
+  margin: 5px 8px;
+  padding: 5px;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px 8px;
+  background-color: green;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+h3 {
+  color: rgb(71, 69, 69);
+}
+
+button:hover {
+  background-color: #515d59ac;
+}
+
+.del {
+  background-color: red;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  
+  .to-do, .doing, .done {
+    height: auto; 
+    margin: 10px 0;
+  }
+}
+
+.container input,
+.container textarea {
+  border: none;
+  font-size: 19px;
+  text-align: center;
+
+}
+.container textarea{
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+
+
+
+.nav-btn button {
+  background-color: #3c64e7; 
+  color: white; 
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: -40px;
+}
+.nav-btn{
+  margin-bottom: -10px;
+}
+
+
+.nav-btn button a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+.nav-btn button:hover{
+  background-color: #b17084;
+  color: rgb(255, 255, 255);
+}

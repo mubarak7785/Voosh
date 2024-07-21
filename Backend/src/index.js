@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config()
 const connect = require("./config/db");
 const dataRouter = require("./controllers/data.controller");
 const { userRouter } = require("./controllers/user.controller");
@@ -15,7 +16,7 @@ app.use("/user", userRouter);
 app.listen(port, async function (req, res) {
   try {
     await connect();
-    console.log("Listening Port 2554");
+    console.log(`Listening port ${port}`);
   } catch (err) {
     console.log(err.message);
   }

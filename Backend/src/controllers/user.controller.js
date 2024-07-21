@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const jwt=require("jsonwebtoken")
+require("dotenv").config()
 
 const userRouter = express.Router();
 
@@ -40,7 +41,7 @@ userRouter.post("/login",async (req, res)=>{
             return res.status(401).json({ message: "Invalid Password" });
         }
 
-        const token=jwt.sign({userId:user._id,username:user.username,role:user.role},"mubarak_key",{expiresIn:"1h"})
+        const token=jwt.sign({userId:user._id,username:user.username,role:user.role},process.env.SECRETKEY,{expiresIn:"1h"})
 
         res.status(201).json({message:"Login successfull",token})
 

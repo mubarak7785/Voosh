@@ -1,5 +1,5 @@
 const express = require("express");
-
+require("dotenv").config()
 const dataRouter = express.Router();
 
 const Data = require("../models/data.model");

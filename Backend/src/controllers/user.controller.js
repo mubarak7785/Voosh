@@ -7,7 +7,7 @@ require("dotenv").config()
 const userRouter = express.Router();
 
 userRouter.post("/register", async (req, res) => {
-  const { name, email, password,username } = req.body;
+  const { name, email, password,username ,role} = req.body;
   try {
     const useremail = await User.findOne({ email });
     const userName = await User.findOne({ username });
@@ -17,7 +17,7 @@ userRouter.post("/register", async (req, res) => {
     }
     const hashpassword = await bcrypt.hash(password, 10);
 
-    const userdata = new User({ name, email, password: hashpassword ,username});
+    const userdata = new User({ name, email, password: hashpassword ,username,role});
 
     await userdata.save();
     res.status(201).json({ message: "User Registered successfully" });

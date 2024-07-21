@@ -56,4 +56,20 @@ dataRouter.patch("/:id", authenticate, async (req, res) => {
   }
 });
 
+dataRouter.get("/alldata", authenticate, async function (req, res) {
+  try {
+    const role = req.user.role;
+    console.log(role)
+    if(role!="admin"){
+      return res.status(401).json({message:"Your not authorized"})
+    }
+    const data = await Data.find().lean().exec();
+    return res.status(201).send(data);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+});
+
+
+
 module.exports = dataRouter;

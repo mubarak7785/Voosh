@@ -19,7 +19,7 @@ dataRouter.post("/create", authenticate, async function (req, res) {
     });
     return res.status(201).send(data);
   } catch (err) {
-    return res.status(500).send(err.message);
+    return res.status(500).json({message:"You are not Authorized"});
   }
 });
 
@@ -29,7 +29,7 @@ dataRouter.get("/all", authenticate, async function (req, res) {
     const data = await Data.find({ username }).lean().exec();
     return res.status(201).send(data);
   } catch (err) {
-    return res.status(500).send(err.message);
+    return res.status(500).json({message:"You are not Authorized"});
   }
 });
 
@@ -38,7 +38,8 @@ dataRouter.delete("/:id", authenticate, async (req, res) => {
     const delitem = await Data.findByIdAndDelete(req.params.id);
     return res.status(200).send(delitem);
   } catch (error) {
-    return res.status(500).send(error.message);
+    
+    return res.status(500).json({message:"You are not Authorized"});
   }
 });
 
@@ -52,7 +53,7 @@ dataRouter.patch("/:id", authenticate, async (req, res) => {
     });
     return res.status(200).send(delitem);
   } catch (error) {
-    return res.status(500).send(error.message);
+    return res.status(500).json({message:"You are not Authorized"});
   }
 });
 
@@ -66,7 +67,7 @@ dataRouter.get("/alldata", authenticate, async function (req, res) {
     const data = await Data.find().lean().exec();
     return res.status(201).send(data);
   } catch (err) {
-    return res.status(500).send(err.message);
+    return res.status(500).json({message:"You are not Authorized"});
   }
 });
 

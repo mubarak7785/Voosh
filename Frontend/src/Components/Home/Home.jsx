@@ -136,7 +136,7 @@ export const Home = () => {
       <div className="nav-btn">
         <Link to="/add">
           {" "}
-          <button>Click Here To Add Task</button>
+          <button className="task_btn">Add Task</button>
         </Link>
       </div>
       <div className="container">

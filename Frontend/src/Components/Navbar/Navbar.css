@@ -1,14 +1,33 @@
 .nav-div {
-    background-color: #605239; 
-    color: white; 
-    padding: 10px;
-    text-align: center;
-    margin: 0%;
-    width: 100%;
-    margin-top: -30px;
-    color: white;
-  }
-  .nav-div h2{
-    margin: 0%;
-    letter-spacing: 2px;
-  }
+  background-color: blueviolet;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin: 0%;
+  width: 100%;
+  margin-top: -30px;
+  
+  display: flex;
+  justify-content: space-between;
+}
+.nav-div > div > h2 {
+  margin: 0%;
+  padding-left: 10px;
+  align-items: center;
+  letter-spacing: 2px;
+}
+
+.nav-div > div {
+  align-content: center;
+}
+
+.log {
+  background-color:blueviolet;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.log:hover {
+  background-color: white;
+  color: blueviolet;
+}

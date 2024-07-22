@@ -68,7 +68,7 @@ h3 {
 }
 
 button:hover {
-  background-color: #515d59ac;
+  background-color: #1b1d1cac;
 }
 
 .del {
@@ -125,6 +125,7 @@ button:hover {
   color: rgb(255, 255, 255);
 }
 .nav-btn button:hover{
-  background-color: #b17084;
-  color: rgb(255, 255, 255);
+  background-color: rgb(65, 66, 83) ;
+  
 }
+

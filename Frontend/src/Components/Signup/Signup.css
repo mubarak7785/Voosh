@@ -1,0 +1,68 @@
+/* Signup.css */
+
+.signup_container{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.sign_heading {
+    margin: auto;
+    margin-top: 2%;
+    font-size: 25px;
+    text-align: left;
+    width: 31%;
+    color: blue;
+    margin-bottom: 20px;
+}
+
+.sign_card {
+    background: rgb(249, 247, 247);
+    padding: 40px 20px;
+    margin: auto;
+    margin-top: 2%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.sign_inp_div {
+    margin-bottom: 15px;
+}
+
+.sign_p {
+    margin: 0 0 5px;
+    font-weight: bold;
+}
+
+.sign_card input {
+    width: 80%;
+    padding: 10px;
+    border: 0.5px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+
+ .sign__btn {
+    width: 40%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7d3da2;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sign__btn:hover {
+    background-color: #555;
+} 
+a{
+    text-decoration: none;
+}

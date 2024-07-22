@@ -1,6 +1,4 @@
-/* Signup.css */
-
-.signup_container{
+.signup_container {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -15,7 +13,7 @@
     font-size: 25px;
     text-align: left;
     width: 31%;
-    color: blue;
+    color: #1E90FF; /* Dodger Blue */
     margin-bottom: 20px;
 }
 
@@ -42,18 +40,17 @@
 .sign_card input {
     width: 80%;
     padding: 10px;
-    border: 0.5px solid #ccc;
+    border: 0.5px solid #B0C4DE; /* Light Steel Blue */
     border-radius: 5px;
     outline: none;
 }
 
-
- .sign__btn {
+.sign__btn {
     width: 40%;
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #7d3da2;
+    background-color: #4682B4; /* Steel Blue */
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -61,8 +58,9 @@
 }
 
 .sign__btn:hover {
-    background-color: #555;
-} 
-a{
+    background-color: #5F9EA0; /* Cadet Blue */
+}
+
+a {
     text-decoration: none;
 }

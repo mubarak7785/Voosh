@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
+import { Navbar } from "../Navbar/Navbar";
 
 export const Login = () => {
   const [logindata, setLogindata] = useState({});
@@ -9,13 +10,34 @@ export const Login = () => {
     const { id, value } = e.target;
     setLogindata({ ...logindata, [id]: value });
   };
-
-  const sendData=async (e)=>{
-    await fetch("https://")
-  }
-
+const navigate=useNavigate()
+  const sendData = async (e) => {
+    try {
+      const response=await fetch("https://voosh-rb1i.onrender.com/user/login", {
+        method: "POST",
+        body: JSON.stringify(logindata),
+        headers: { "content-type": "application/json" },
+      })
+       console.log(response) 
+      const data= await response.json()
+      if(response.ok){
+        alert(data.message)
+        localStorage.setItem('token', data.token);
+        navigate("/home")
+      }
+      else{
+        alert(data.message)
+      }
+      console.log(data)      
+    } catch (error) {
+      alert("Error");
+    }
+  };
   return (
-    <div className="signup_container">
+    <>
+    <Navbar/>
+
+<div className="signup_container">
       <div className="sign_heading">
         <h2>Login</h2>
       </div>
@@ -34,7 +56,7 @@ export const Login = () => {
           <input type="password" id="password" onChange={handleChange} />
         </div>
         <div className="sign_inp_div">
-          <button onClick={sendData} className="sign__btn">Signup</button>
+          <button onClick={sendData} className="sign__btn">Login</button>
         </div>
         <div className="sign_inp_div">
           <h3>
@@ -43,5 +65,8 @@ export const Login = () => {
         </div>
       </div>
     </div>
+    
+    </>
+
   );
 };

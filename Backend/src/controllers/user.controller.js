@@ -43,7 +43,7 @@ userRouter.post("/login",async (req, res)=>{
 
         const token=jwt.sign({userId:user._id,username:user.username,role:user.role},process.env.SECRETKEY,{expiresIn:"1h"})
 
-        res.status(201).json({message:"Login successfull",token})
+        res.status(201).json({message:"Login successfull",token,user_details:user})
 
     }catch(error){
         console.log(error);

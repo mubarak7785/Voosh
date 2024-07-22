@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
-import { forwardRef } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-
 import withReactContent from "sweetalert2-react-content";
+import { Navbar } from "../Navbar/Navbar";
 
 const MySwal = withReactContent(Swal);
 
@@ -16,44 +15,43 @@ export const Home = () => {
   const [doneData, setDoneData] = useState([]);
   const [btn, setBtn] = useState(false);
   const [status, setStatus] = useState("");
+  const [token, setToken] = useState();
 
   useEffect(() => {
-    fetchData();
+    const token2 = localStorage.getItem("token");
+    setToken(token2);
+    fetchData(token2);
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = async (token) => {
     try {
-      const response = await fetch(
-        "https://kanban-task-z27k.onrender.com/data"
-      );
+      const response = await fetch("https://voosh-rb1i.onrender.com/data/all", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
       const fetchedData = await response.json();
       setData(fetchedData);
+      categorizeData(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  useEffect(() => {
-    if (data) {
-      const toDo = data
-        .filter((elem) => elem.status === "To-do")
-        .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-      const doing = data
-        .filter((elem) => elem.status === "Doing")
-        .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-      const done = data
-        .filter((elem) => elem.status === "Done")
-        .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  const categorizeData = (data) => {
+    const toDo = data.filter((elem) => elem.status === "To-do");
+    const doing = data.filter((elem) => elem.status === "Doing");
+    const done = data.filter((elem) => elem.status === "Done");
 
-      setToDoData(toDo);
-      setDoingData(doing);
-      setDoneData(done);
-    }
-  }, [data]);
+    setToDoData(toDo);
+    setDoingData(doing);
+    setDoneData(done);
+  };
 
   const handleEditChange = (e) => {
     const { id, value } = e.target;
-
     setEditeddata({ ...editeddata, [id]: value });
   };
 
@@ -68,19 +66,16 @@ export const Home = () => {
 
   const updateTask = async (id, editeddata) => {
     try {
-      await fetch(`https://kanban-task-z27k.onrender.com/data/${id}`, {
+      await fetch(`https://voosh-rb1i.onrender.com/data/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
         body: JSON.stringify(editeddata),
       });
-      MySwal.fire(
-        "Task has been Updated!",
-        "Please click the button!",
-        "success"
-      );
-      fetchData();
+      MySwal.fire("Task has been Updated!", "Please click the button!", "success");
+      fetchData(token);
     } catch (e) {
       console.log(e);
     }
@@ -92,15 +87,12 @@ export const Home = () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       });
 
-      MySwal.fire(
-        "Task has been Deleted!",
-        "Please click the button!",
-        "success"
-      );
-      fetchData();
+      MySwal.fire("Task has been Deleted!", "Please click the button!", "success");
+      fetchData(token);
     } catch (e) {
       console.log(e);
     }
@@ -119,13 +111,9 @@ export const Home = () => {
         body: JSON.stringify(obj),
       });
 
-      MySwal.fire(
-        "Status has been updated!",
-        "Please click the button!",
-        "success"
-      );
+      MySwal.fire("Status has been updated!", "Please click the button!", "success");
       setStatus({});
-      fetchData();
+      fetchData(token);
     } catch (e) {
       console.log(e);
     }
@@ -133,9 +121,9 @@ export const Home = () => {
 
   return (
     <div>
+      <Navbar/>
       <div className="nav-btn">
         <Link to="/add">
-          {" "}
           <button className="task_btn">Add Task</button>
         </Link>
       </div>
@@ -143,123 +131,82 @@ export const Home = () => {
         <div className="to-do">
           <h2>To-Do</h2>
           <div>
-            {toDoData.map((e) => (
-              <div className="card" key={e.id}>
+            {toDoData.length==0 ? <h3>You have not added task in To-Do</h3> : toDoData.map((e) => (
+              <div className="card" key={e._id}>
                 {btn && e._id === editeddata.id ? (
                   <input
                     type="text"
                     onChange={(e) => handleEditChange(e, e._id)}
                     id="title"
-                    value={
-                      e._id === editeddata.id
-                        ? editeddata.title || e.title
-                        : e.title
-                    }
+                    value={e._id === editeddata.id ? editeddata.title || e.title : e.title}
                   />
                 ) : (
                   <h3>Title: {e.title}</h3>
                 )}
                 {btn && e._id === editeddata.id ? (
                   <textarea
-                    name=""
                     id="description"
                     cols="40"
                     rows="2"
-                    value={
-                      e._id === editeddata.id
-                        ? editeddata.description || e.description
-                        : e.description
-                    }
+                    value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
                     onChange={handleEditChange}
                   ></textarea>
                 ) : (
                   <p>Description: {e.description}</p>
                 )}
-
                 <p>Status: {e.status}</p>
-                <select
-                  onChange={(event) => {
-                    handleChangeStatus(e._id, event);
-                  }}
-                  value={status}
-                >
+                <select onChange={(event) => handleChangeStatus(e._id, event)} value={status}>
                   <option value="">Select</option>
                   <option value="To-do">To-do</option>
                   <option value="Doing">Doing</option>
                   <option value="Done">Done</option>
                 </select>
-                <button
-                  onClick={() => {
-                    handleEdit(e._id);
-                  }}
-                >
+                <button onClick={() => handleEdit(e._id)}>
                   {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
                 </button>
-                <button className="del" onClick={() => handleDelete(e._id)}>
-                  Delete task
-                </button>
+                <button className="del" onClick={() => handleDelete(e._id)}>Delete task</button>
               </div>
             ))}
+        
           </div>
         </div>
         <div className="doing">
           <h2>Doing</h2>
           <div>
-            {doingData.map((e) => (
-              <div className="card" key={e.id}>
+          {doingData.length==0 ? <h3>You have not added task in Doing</h3> :doingData.map((e) => (
+              <div className="card" key={e._id}>
                 {btn && e._id === editeddata.id ? (
                   <input
                     type="text"
                     onChange={(e) => handleEditChange(e, e._id)}
                     id="title"
-                    value={
-                      e._id === editeddata.id
-                        ? editeddata.title || e.title
-                        : e.title
-                    }
+                    value={e._id === editeddata.id ? editeddata.title || e.title : e.title}
                   />
                 ) : (
                   <h3>Title: {e.title}</h3>
                 )}
                 {btn && e._id === editeddata.id ? (
                   <textarea
-                    name=""
                     id="description"
                     cols="40"
                     rows="2"
-                    value={
-                      e._id === editeddata.id
-                        ? editeddata.description || e.description
-                        : e.description
-                    }
+                    value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
                     onChange={handleEditChange}
                   ></textarea>
                 ) : (
                   <p>Description: {e.description}</p>
                 )}
-
                 <p>Status: {e.status}</p>
-                <select
-                  onChange={(event) => {
-                    handleChangeStatus(e._id, event);
-                  }}
-                  value={status}
-                >
+                <select onChange={(event) => handleChangeStatus(e._id, event)} value={status}>
                   <option value="">Select</option>
                   <option value="To-do">To-do</option>
                   <option value="Doing">Doing</option>
                   <option value="Done">Done</option>
                 </select>
-                <button
-                  onClick={() => {
-                    handleEdit(e._id);
-                  }}
-                >
+                <button onClick={() => handleEdit(e._id)}>
                   {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
                 </button>
-                <button className="del" onClick={() => handleDelete(e._id)}>
-                  Delete task
-                </button>
+                <button className="del" onClick={() => handleDelete(e._id)}>Delete task</button>
               </div>
             ))}
           </div>
@@ -267,63 +214,43 @@ export const Home = () => {
         <div className="done">
           <h2>Done</h2>
           <div>
-            {doneData.map((e) => (
-              <div className="card" key={e.id}>
+          {doneData.length==0 ? <h3>You have not added task in Done</h3> :doneData.map((e) => (
+              <div className="card" key={e._id}>
                 {btn && e._id === editeddata.id ? (
                   <input
                     type="text"
                     onChange={(e) => handleEditChange(e, e._id)}
                     id="title"
-                    value={
-                      e._id === editeddata.id
-                        ? editeddata.title || e.title
-                        : e.title
-                    }
+                    value={e._id === editeddata.id ? editeddata.title || e.title : e.title}
                   />
                 ) : (
                   <h3>Title: {e.title}</h3>
                 )}
                 {btn && e._id === editeddata.id ? (
                   <textarea
-                    name=""
                     id="description"
                     cols="40"
                     rows="2"
-                    value={
-                      e._id === editeddata.id
-                        ? editeddata.description || e.description
-                        : e.description
-                    }
+                    value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
                     onChange={handleEditChange}
                   ></textarea>
                 ) : (
                   <p>Description: {e.description}</p>
                 )}
-
                 <p>Status: {e.status}</p>
-                <select
-                  onChange={(event) => {
-                    handleChangeStatus(e._id, event);
-                  }}
-                  value={status}
-                >
+                <select onChange={(event) => handleChangeStatus(e._id, event)} value={status}>
                   <option value="">Select</option>
                   <option value="To-do">To-do</option>
                   <option value="Doing">Doing</option>
                   <option value="Done">Done</option>
                 </select>
-                <button
-                  onClick={() => {
-                    handleEdit(e._id);
-                  }}
-                >
+                <button onClick={() => handleEdit(e._id)}>
                   {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
                 </button>
-                <button className="del" onClick={() => handleDelete(e._id)}>
-                  Delete task
-                </button>
+                <button className="del" onClick={() => handleDelete(e._id)}>Delete task</button>
               </div>
             ))}
+            {}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 .nav-div {
-  background-color: blueviolet;
+  background-color: #1E90FF; /* Dodger Blue */
   color: white;
   padding: 10px;
   text-align: center;
@@ -10,6 +10,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+
 .nav-div > div > h2 {
   margin: 0%;
   padding-left: 10px;
@@ -22,12 +24,15 @@
 }
 
 .log {
-  background-color:blueviolet;
+  background-color: #4682B4; /* Steel Blue */
   font-size: 16px;
   font-weight: bold;
 }
 
 .log:hover {
   background-color: white;
-  color: blueviolet;
+  color: #4682B4; /* Steel Blue */
+}
+.nav-div>div>a{
+  color: white;
 }

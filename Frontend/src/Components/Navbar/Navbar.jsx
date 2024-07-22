@@ -5,10 +5,11 @@ export const Navbar = () => {
   return (
     <div className="nav-div">
       <div>
-        <h2>Voosh</h2>
+        <Link to="/home"><h2 className="voosh">Voosh</h2></Link>
+        
       </div>
       <div>
-        <Link to="/login">
+        <Link to="/">
           <button className="log">Login</button>
         </Link>
         <Link to="/signup">

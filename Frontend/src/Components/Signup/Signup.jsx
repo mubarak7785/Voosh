@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./Signup.css";
 
 import React, { useState } from "react";
+import { Navbar } from "../Navbar/Navbar";
 
 export const Signup = () => {
   const [signupdata, setSignupdata] = useState({});
@@ -11,8 +12,31 @@ export const Signup = () => {
     setSignupdata({ ...signupdata, [id]: value });
   };
 
+  const sendData = async (e) => {
+    try {
+      const response=await fetch("https://voosh-rb1i.onrender.com/user/register", {
+        method: "POST",
+        body: JSON.stringify(signupdata),
+        headers: { "content-type": "application/json" },
+      })
+       console.log(response) 
+      const data= await response.json()
+      if(response.ok){
+        alert(data.message)
+      }
+      else{
+        alert(data.message)
+      }
+      console.log(data)      
+    } catch (error) {
+      alert("Error");
+    }
+  };
+
   return (
-    <div className="signup_container">
+    <>
+        <Navbar/>
+<div className="signup_container">
       <div className="sign_heading">
         <h2>Signup</h2>
       </div>
@@ -42,12 +66,19 @@ export const Signup = () => {
           <input type="password" id="password" onChange={handleChange} />
         </div>
         <div className="sign_inp_div">
-          <button className="sign__btn">Signup</button>
+          <button onClick={sendData} className="sign__btn">
+            Signup
+          </button>
         </div>
         <div className="sign_inp_div">
-          <h3>Already have an account? <Link to="/login">Login</Link></h3>
+          <h3>
+            Already have an account? <Link to="/">Login</Link>
+          </h3>
         </div>
       </div>
     </div>
+    
+    </>
+   
   );
 };

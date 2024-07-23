@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 
 import React, { useState } from "react";
@@ -6,7 +6,7 @@ import { Navbar } from "../Navbar/Navbar";
 
 export const Signup = () => {
   const [signupdata, setSignupdata] = useState({});
-
+  const navigate=useNavigate()
   const handleChange = (e) => {
     const { id, value } = e.target;
     setSignupdata({ ...signupdata, [id]: value });
@@ -23,11 +23,12 @@ export const Signup = () => {
       const data= await response.json()
       if(response.ok){
         alert(data.message)
+        navigate("/")
       }
       else{
         alert(data.message)
       }
-      console.log(data)      
+     
     } catch (error) {
       alert("Error");
     }

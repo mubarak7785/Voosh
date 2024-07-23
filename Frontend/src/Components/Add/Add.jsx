@@ -3,7 +3,7 @@ import "./Add.css";
 import { Link, useNavigate } from "react-router-dom";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-
+import { Navbar2 } from "../Navbar2/Navbar2";
 const MySwal = withReactContent(Swal);
 
 export const Add = () => {
@@ -44,6 +44,7 @@ export const Add = () => {
   };
   return (
     <div>
+      <Navbar2/>
       <div className="form">
         <h3>Add Tasks Here !</h3>
         <label htmlFor="">Titel</label>

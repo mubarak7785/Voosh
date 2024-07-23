@@ -22,10 +22,17 @@
   background-color: #ADD8E6; /* Light Blue */
   border: 1px solid #87CEEB; /* Sky Blue */
   border-radius: 5px;
-  
   padding: 10px;
   margin: 10px 0;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+ 
+}
+.card>h3,p{
+  text-align: left;
+}
+.card>h3{
+  margin: 0%;
+  color: black;
 }
 .card>select{
   background-color:  #81c2d8;

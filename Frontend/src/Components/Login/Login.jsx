@@ -23,6 +23,7 @@ const navigate=useNavigate()
       if(response.ok){
         alert(data.message)
         localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.user_details.username);
         navigate("/home")
       }
       else{
@@ -59,7 +60,7 @@ const navigate=useNavigate()
           <button onClick={sendData} className="sign__btn">Login</button>
         </div>
         <div className="sign_inp_div">
-          <h3>
+          <h3 className="lot">
             Don't have an account? <Link to="/signup">Signup</Link>
           </h3>
         </div>

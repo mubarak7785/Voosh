@@ -1,0 +1,54 @@
+/* Navbar2.css */
+
+.nav-div2 {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #007bff; /* Blue background */
+    color: white;
+    margin-top: -2%;
+    margin-left: -1%;
+    width: 100%;
+  }
+  
+  .nav-div2 > div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-div2 a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .voosh2 {
+    margin: 0;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+  }
+  
+  .log2 {
+    margin: 0 10px; /* Space between username and logout button */
+  }
+  
+  button.log2 {
+    background: #0056b3; /* Darker blue for the button */
+    border: none;
+    color: white;
+    padding: 12px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button.log2:hover {
+    background: #004494; /* Even darker blue on hover */
+  }
+  .nav-div2>div>a>h3{
+    color: white;
+  }

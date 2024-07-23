@@ -71,7 +71,7 @@ export const Signup = () => {
           </button>
         </div>
         <div className="sign_inp_div">
-          <h3>
+          <h3 className="lot">
             Already have an account? <Link to="/">Login</Link>
           </h3>
         </div>

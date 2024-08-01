@@ -84,7 +84,7 @@ export const Home = () => {
 
   const handleDelete = async (delId) => {
     try {
-      await fetch(`https://voosh-rb1i.onrender.com//data/${delId}`, {
+      await fetch(`https://voosh-rb1i.onrender.com/data/${delId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ export const Home = () => {
       const newStatus = event.target.value;
       setStatus(newStatus);
       const obj = { status: newStatus };
-      await fetch(`https://voosh-rb1i.onrender.com//data/${satId}`, {
+      await fetch(`https://voosh-rb1i.onrender.com/data/${satId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
